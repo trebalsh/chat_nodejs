@@ -5,14 +5,17 @@
  */
 require.config({
 	'paths': {
-        'angular': '../lib/angular/angular',
-		'angularAnimate': '../lib/angular-animate/angular-animate',
-		'angularSanitize': '../lib/angular-sanitize/angular-sanitize',
-		'uiRouter': '../lib/angular-ui-router/release/angular-ui-router',
-		'cryptojs': '../lib/npm-cryptojs-lib/index',
-        'async':'../lib/requirejs-plugins/src/async'
+        'socketIo':'../../socket.io/socket.io.js',
+        'angular': '../../node_modules/angular/angular',
+		'angularAnimate': '../../node_modules/angular-animate/angular-animate',
+		'angularSanitize': '../../node_modules/angular-sanitize/angular-sanitize',
+		'uiRouter': '../../node_modules/angular-ui-router/release/angular-ui-router',
+		'cryptojs': '../../node_modules/npm-cryptojs-lib/index'
 	},
 	'shim': {
+        'socketIo': {
+            exports: 'io'
+        },
         'angular': {
 			exports: 'angular'
 		},
@@ -30,6 +33,7 @@ require.config({
 		}
     },
     priority: [
+        'io',
         'angular',
         'cryptojs'
     ],
