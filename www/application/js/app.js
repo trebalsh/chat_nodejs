@@ -4,6 +4,7 @@
 define([
 	'angular',
 	'uiRouter',
+    'uiBootstrap',
     './core/core',
     './controllers/controllers',
 	'./services/services',
@@ -14,6 +15,7 @@ define([
     
     return angular.module('app', [
 		'ui.router',
+        'ui.bootsrap',
 		'jb',
         'app.services',
 		'app.controllers',
