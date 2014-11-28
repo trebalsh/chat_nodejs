@@ -71,22 +71,27 @@ query.prototype = {
         } else {
             this.selectdata = data.join(", ");
         }
+        return this;
     },
     insert: function(data) {
         if (data === null) {
-            this.insertdata = "*";
+            return false;
         } else {
             this.insertdata = data.join(", ");
         }
+        return this;
     },
     update: function(table) {
         this.table = table;
+        return this;
     },
     into: function(table) {
         this.table = table;
+        return this;
     },
     from: function(table) {
         this.table = table;
+        return this;
     },
     updatevalues: function(values) {
         if (typeof values === 'object' || typeof values === 'Array') {
@@ -97,12 +102,15 @@ query.prototype = {
             });
             this.updatevalues = tmp.join(", ");
         }
+        return this;
     },
     values: function(values) {
-       this.insertvalues = data.join(", ");
+        this.insertvalues = data.join(", ");
+        return this;
     },
     where: function(condition) {
         this.condition = condition;
+        return this;
     },
     run: function() {
         if (connection !== null) {
