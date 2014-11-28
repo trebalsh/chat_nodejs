@@ -1,24 +1,24 @@
 //include
-var checkers = require('../util/checkers');
+var checkers = require('../utils/checkers');
 var mysql = require('../storages/mysql');
-mysql.on(mysql.ERROR_CONNECTION, function(data) {
+var events = require('events');
+var evtReceiver = new events.EventEmitter();
+
+//init db connection
+evtReceiver.on(mysql.ERROR_CONNECTION, function(data) {
     console.log(data);
 });
 mysql.start();
 
-//constant
-var ROUTE_LOGIN = '/login';
-var ROUTE_REGISTER = '/register';
-var ROUTE_LOSTPASSWORD = '/renew-password';
 
 function login(data, success_callback, error_callback) {
     if (typeof data === 'object') {
         if (data.hasOwnProperty('username') && data.hasOwnProperty('password')) {
             var q = mysql.query();
             
-            mysql.on(mysql.ERROR_REQUEST, error_callback);
+            evtReceiver.on(mysql.ERROR_REQUEST, error_callback);
             
-            mysql.on(mysql.SUCCESS_REQUEST, function(res) {
+            evtReceiver.on(mysql.SUCCESS_REQUEST, function(res) {
                 //update user last_activty time
                 var now = new Date();
                 q.update('user').updatevalues({field_name:'last_activity', field_value:now.toLocaleFormat("%Y-%m-%d %H:%M:%S")}).where("id='"+res.id+"'");
@@ -36,8 +36,8 @@ function register(data, success_callback, error_callback) {
             //TODO encrypt password + send confirmation email [template email]
             var q = mysql.query();
             
-            mysql.on(mysql.ERROR_REQUEST, error_callback);
-            mysql.on(mysql.SUCCESS_REQUEST, function(res) {
+            evtReceiver.on(mysql.ERROR_REQUEST, error_callback);
+            evtReceiver.on(mysql.SUCCESS_REQUEST, function(res) {
                 if (res.username || res.email_address) {
                     error_callback({code:500, type:'login', message:'Username or email_address already taken'});
                 } else {
@@ -63,19 +63,15 @@ function renewpassword(data, success_callback, error_callback) {
         if (checkers.test_email_address(data.email_address) && checkers.test_username(data.username)) {
             var q = mysql.query();
             
-            mysql.on(mysql.ERROR_REQUEST, error_callback);
-            mysql.on(mysql.)
+            evtReceiver.on(mysql.ERROR_REQUEST, error_callback);
+            evtReceiver.on(mysql.SUCCESS_REQUEST, function(data) {
+                //TODO something
+                success_callback(data);
+            });
         }
     }
 }
 
-exports.routes = [
-    {
-        route:ROUTE_LOGIN,
-        handler:login
-    },
-    {
-        route:ROUTE_REGISTER,
-        handler:register
-    }
-];
+exports.login = login;
+exports.register = register;
+exports.renewpassword = renewpassword;

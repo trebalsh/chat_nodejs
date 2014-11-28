@@ -2,7 +2,7 @@ var io = require('socket.io');
 
 var sockets = [];
 
-var handleEvents = [];
+var handlerEvents = [];
 
 function start(app) {
     if (app !== null) {
@@ -23,7 +23,7 @@ function connect() {
                 connectionsarray.splice(socketindex, 1);
         });
         
-        handleEvents.forEach(function(handler, index) {
+        handlerEvents.forEach(function(handler, index) {
             socket.on(handler.eventname, callback);
         });
         

@@ -10,6 +10,11 @@ socketserver.start(httpserver.getapp());
 var mysql = require('./modules/storages/mysql');
 mysql.start();
 
-/* load utils modules */
-var checkers = require('./modules/utils/checkers');
+/* load controllers */
+var login = require('./modules/controllers/login');
 
+
+/* set REST routes */
+httpserver.addroutes(login.routes());
+
+/* set socket */
