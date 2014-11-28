@@ -8,6 +8,13 @@ define([
     
     var mod = angular.module('jb');
     
+    /*js init*/
+    if (!Array.prototype.last){
+        Array.prototype.last = function(){
+            return this[this.length - 1];
+        };
+    };
+    
     /*helpers*/
     mod.factory('LanguageHelper', require('./core/helpers/language-helper'));
     
@@ -15,9 +22,7 @@ define([
     mod.factory('GeneralConfig', require('./core/config/general'));
     mod.factory('LanguageConfig', require('./core/config/lang'));
 
-    mod.factory('Config', require('./core/config/config'));
-    
-    mod.service('config', ['$q', 'GeneralConfig', 'LanguageConfig', 'LanguageHelper',
+    mod.service('Config', ['$q', 'GeneralConfig', 'LanguageConfig', 'LanguageHelper',
         function(q, GeneralConfig, LanguageConfig, LanguageHelper) {
             var answer = {};
             
@@ -35,5 +40,10 @@ define([
             };
             return answer;
     }]);
+    
+    /*network*/
+    mod.factory('SocketNetwork', require('./core/network/socket'));
+    mod.factory('HttpNetwork', require('./core/network/http'));
+    
     return mod;
 });

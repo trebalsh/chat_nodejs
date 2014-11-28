@@ -10,16 +10,16 @@ define(function(require) {
     services.factory('MenuCtrl', require('services/modules/menu/menu'));
     
     /* account management */
-    services.factory('LoginCtrl', require('services/modules/login/login'));
-    services.factory('RegisterCtrl', require('services/modules/login/register'));
+    services.factory('LoginServices', require('services/modules/login/login'));
+    services.factory('RegisterServices', require('services/modules/login/register'));
     
     /* chat module */
-    services.factory('PeopleCtrl', require('services/modules/chat/people'));
-    services.factory('HistoryCtrl', require('services/modules/chat/history'));
-    services.factory('RoomCtrl', require('services/modules/chat/room'));
+    services.factory('PeopleServices', require('services/modules/chat/people'));
+    services.factory('HistoryServices', require('services/modules/chat/history'));
+    services.factory('RoomServices', require('services/modules/chat/room'));
     
     /* error handler */
-    services.factory('NotFoundCtrl', require('services/modules/errors/notfound'));
+    services.factory('NotFoundServices', require('services/modules/errors/notfound'));
     
     return services;
 });

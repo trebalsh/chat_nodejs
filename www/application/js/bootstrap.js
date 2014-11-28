@@ -8,13 +8,14 @@ define([
 ], function(angular, app) {
 	'use strict';
     
-    document.addEventListener('deviceready', function() {
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    $html = angular.element(document.getElementsByTagName('html')[0]);
+    angular.element().ready(
+        function() {
+            try {
+                angular.bootstrap(document, [app.name]);
+            } catch (e) {
+                console.log(e.stack || e.message || e);
+            }
         }
-        if (window.StatusBar) {
-            StatusBar.styleDefault();
-        }
-        angular.bootstrap(document, [app.name]);
-    });
+    );
 });

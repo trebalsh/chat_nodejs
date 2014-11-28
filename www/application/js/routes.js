@@ -10,9 +10,9 @@ define(['app'], function(app) {
 		    	url: "/login",
                 templateUrl: "templates/login/login.html",
                 resolve: {
-                    'config':function($q, AppMethods) {
+                    'config':function($q, Config) {
                         var defer = $q.defer();
-                        AppMethods.fetchData(defer);
+                        Config.fetchData(defer);
                         return defer.promise;
                     }
                 },
