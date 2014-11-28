@@ -11,7 +11,7 @@ function login(request, response) {
     request.on('data', function(chunk) {
         body += chunck;
     }).on('end', function() {
-        if (data.username && data.password) {
+        /*if (data.username && data.password) {
             loginservice.login(data, function(res) {
                 response.write(res);
             }, function(err) {
@@ -19,7 +19,9 @@ function login(request, response) {
             });
         } else {
             response.write("403 : bim");
-        }
+        }*/
+        response.writeHead(200);
+        response.end(body);
     });
 }
 

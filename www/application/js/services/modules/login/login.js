@@ -11,7 +11,7 @@ define(['angular'], function(angular) {
         var success = [];
         
         var log = function() {
-            this.socketconnection = new SocketNetwork(Config.general.protocol+'://'+Config.general.addr+':'+Config.general.port);
+            this.httpconnection = new SocketNetwork(Config.general.protocol+'://'+Config.general.addr+':'+Config.general.port);
             this.socketconnection.connect();
         };
         

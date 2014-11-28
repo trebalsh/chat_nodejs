@@ -16,7 +16,7 @@ define([
     return angular.module('app', [
 		'ui.router',
         'ui.bootsrap',
-		'jb',
+		'app.jb',
         'app.services',
 		'app.controllers',
         'app.directives',

@@ -1,12 +1,11 @@
 /*
  * @author jbaudin
  */
-define([
-    'angular',
-], function(angular) {
+define(function(require) {
     'use strict';
     
-    var mod = angular.module('jb');
+    var angular = require('angular');
+    var mod = angular.module('app.jb');
     
     /*js init*/
     if (!Array.prototype.last){
@@ -16,11 +15,11 @@ define([
     };
     
     /*helpers*/
-    mod.factory('LanguageHelper', require('./core/helpers/language-helper'));
+    mod.factory('LanguageHelper', require('core/helpers/language-helper'));
     
     /*configuration*/
-    mod.factory('GeneralConfig', require('./core/config/general'));
-    mod.factory('LanguageConfig', require('./core/config/lang'));
+    mod.factory('GeneralConfig', require('core/config/general'));
+    mod.factory('LanguageConfig', require('core/config/lang'));
 
     mod.service('Config', ['$q', 'GeneralConfig', 'LanguageConfig', 'LanguageHelper',
         function(q, GeneralConfig, LanguageConfig, LanguageHelper) {
@@ -42,8 +41,8 @@ define([
     }]);
     
     /*network*/
-    mod.factory('SocketNetwork', require('./core/network/socket'));
-    mod.factory('HttpNetwork', require('./core/network/http'));
+    mod.factory('SocketNetwork', require('core/network/socket'));
+    mod.factory('HttpNetwork', require('core/network/http'));
     
     return mod;
 });

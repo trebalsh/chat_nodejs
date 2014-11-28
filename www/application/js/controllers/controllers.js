@@ -3,8 +3,8 @@ define(function(require) {
 	 
 	var angular = require('angular');
 	var services = require('services/services');
-	var config = require('config');
-	var controllers = angular.module('app.controllers', ['jb', 'app.services']);
+    var jb = require('core/core');
+	var controllers = angular.module('app.controllers', ['app.jb', 'app.services']);
 
     controllers.controller('LoginCtrl', './controllers/modules/login/login');
     controllers.controller('RegisterCtrl', './controllers/modules/login/register');
