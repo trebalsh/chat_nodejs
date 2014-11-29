@@ -2,6 +2,7 @@
 var checkers = require('../utils/checkers');
 var mysql = require('../storages/mysql');
 var events = require('events');
+var extend = require('util')._extend;
 var evtReceiver = new events.EventEmitter();
 
 //init db connection

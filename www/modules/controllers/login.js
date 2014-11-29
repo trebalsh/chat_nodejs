@@ -12,6 +12,7 @@ function login(request, response) {
         body += chunk;
     }).on('end', function() {
         var data = JSON.parse(body);
+        console.log(data);
         if (data.username && data.password) {
             loginservice.login(data, function(res) {
                 response.write(res);

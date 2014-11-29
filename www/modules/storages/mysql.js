@@ -112,6 +112,15 @@ query.prototype = {
         this.condition = condition;
         return this;
     },
+    cleaner: function() {
+        var selectdata = "";
+        var insertdata = "";
+        var insertvalues = "";
+        var updatevalues = "";
+        var update
+        var table = "";
+        var condition = "";
+    },
     run: function() {
         if (connection !== null) {
             var querytxt;
@@ -134,26 +143,20 @@ query.prototype = {
             var query = connection.query(querytxt);
             var answer;
             
+            var that = this;
+            
             query.on('error', function(err) {
                 var evt = extend(errorrequest, {request:querytxt, message:err});
                 triggerevents(ERROR_REQUEST, evt);
             }).on('result', function(res) {
+                console.log(res);
                 answer = res;
             }).on('end', function() {
                 var evt = extend(successrequest, {result:answer});
                 triggerevents(SUCCESS_REQUEST, evt);
-                this.cleaner();
+                that.cleaner();
             });
         }
-    },
-    cleaner: function() {
-        var selectdata = "";
-        var insertdata = "";
-        var insertvalues = "";
-        var updatevalues = "";
-        var update
-        var table = "";
-        var condition = "";
     }
 };
 
@@ -164,4 +167,6 @@ exports.ERROR_REQUEST = ERROR_REQUEST;
 exports.SUCCESS_REQUEST = SUCCESS_REQUEST;
 
 exports.start = start;
-exports.query = query;
+exports.query = function() {
+    return new query();
+};

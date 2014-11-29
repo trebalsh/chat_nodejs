@@ -14,8 +14,8 @@ define(['angular'], function(angular) {
             this.httpconnection = new HttpNetwork();
         };
         
-        log.prototype.login = function(email, password, callback) {
-            this.httpconnection.restpost('/login', {email_address:email, password:password}, {}, callback);
+        log.prototype.login = function(username, password, callback) {
+            this.httpconnection.restpost('/login', {username:username, password:password}, {}, callback);
         };
         
         log.prototype.register = function(username, email, password) {

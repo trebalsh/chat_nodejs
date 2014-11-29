@@ -12,8 +12,8 @@ define(['angular'], function(angular) {
         $scope.email = "";
         $scope.password = "";
         
-        $scope.login = function(email, password) {
-            $scope.loginobj.login(email, password, function(data) {
+        $scope.login = function(username, password) {
+            $scope.loginobj.login(username, password, function(data) {
                 if (data.id) {
                     console.log('connected');
                 }
