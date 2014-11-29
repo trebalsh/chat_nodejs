@@ -5,7 +5,7 @@
  */
 require.config({
 	'paths': {
-        'socketIo':'../../node_modules/socket.io/node_modules/socket.io-client/socket.io',
+        'socketio':'https://cdn.socket.io/socket.io-1.2.1',
         'angular': '../../node_modules/angular/angular',
 		'angularAnimate': '../../node_modules/angular-animate/angular-animate',
 		'angularSanitize': '../../node_modules/angular-sanitize/angular-sanitize',
@@ -14,7 +14,7 @@ require.config({
 		'cryptojs': '../../node_modules/npm-cryptojs-lib/index'
 	},
 	'shim': {
-        'socketIo': {
+        'socketio': {
             exports: 'io'
         },
         'angular': {
@@ -37,7 +37,6 @@ require.config({
 		}
     },
     priority: [
-        'io',
         'angular',
         'cryptojs'
     ],

@@ -1,5 +1,6 @@
 var http = require('http');
 var url = require('url');
+var path = require('path');
 var fs = require('fs');
 
 var handlerRoutes = [];
@@ -21,38 +22,48 @@ function start() {
     function handler(req, res) {
         //add handlers for routes
         var pathname = url.parse(req.url).pathname;
+        var filename = path.join(process.cwd(), pathname);
         
-        //default : "/"
+        var handlerfound = false;
+        
         switch (pathname) {
             case '/':
                 loadfiles(__dirname+'/../../application/app.html', res);
             break;
             default:
-                //check for js and css files
-                if (pathname.substring(pathname.length - 2, pathname.length) === 'js') {
-                    console.log("js");
-                    loadfiles(__dirname+'/../..'+pathname, res);
-                } else if (pathname.substring(pathname.length - 3, pathname.length) === 'css') {
-                    console.log("css");
-                } else if (handlerRoutes.length) {
-                    //parse routes
-                    var handlerfound = false;
-                    handlerRoutes.forEach(function(handler, index) {
-                        if (handler.route === pathname) {
-                            handlerfound = true;
-                            handler.handler(req, res);
-                        }
-                    });
-                    if (handlerfound === false) {
-                        res.writeHead(404);
-                        res.end("NOTHING TO SEE");
+                //parse routes
+                handlerRoutes.forEach(function(handler, index) {
+                    if (handler.route === pathname) {
+                        handlerfound = true;
+                        handler.handler(req, res);
                     }
-                } else {
-                    res.writeHead(404);
-                    res.end("NOTHING TO SEE");
-                }   
+                });   
             break;
         }
+        if (handlerfound)
+            return;
+        console.log(filename);
+        fs.exists(filename, function(exists) {
+            if (!exists) {
+                res.writeHead(404, {"Content-Type": "text/plain"});
+                res.write("404 Not Found\n");
+                res.end();
+                return;
+            }
+            if (fs.statSync(filename).isDirectory()) filename += '/index.html';
+            
+            fs.readFile(filename, "binary", function(err, file) {
+                if (err) {        
+                    res.writeHead(500, {"Content-Type": "text/plain"});
+                    res.write(err + "\n");
+                    res.end();
+                    return;
+                }
+                res.writeHead(200);
+                res.write(file, "binary");
+                res.end();
+            });
+        });
     }
     http.createServer(handler).listen(8000);
 }

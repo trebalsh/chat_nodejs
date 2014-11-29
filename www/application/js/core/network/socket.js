@@ -3,7 +3,7 @@
  */
 define([
     'angular', 
-    'io'
+    'socketio'
 ], function(angular, io) {
     var ws = function(config) {
         //TODO configuration Manager#socket

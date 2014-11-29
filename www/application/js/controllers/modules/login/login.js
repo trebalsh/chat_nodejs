@@ -5,14 +5,26 @@
 define(['angular'], function(angular) {
     'use strict';
     
-    var ctrl = function($scope, LoginService) {
-        $scope.loginobj = new LoginService();
+    var ctrl = function($scope, $state, LoginServices) {
+        $scope.loginobj = new LoginServices();
     
-        $scope.login = function(username, email, password) {
-            $scope.loginobj.login(username, email, password);
+        $scope.username = "";
+        $scope.email = "";
+        $scope.password = "";
+        
+        $scope.login = function(email, password) {
+            $scope.loginobj.login(email, password, function(data) {
+                if (data.id) {
+                    console.log('connected');
+                }
+            });
+        };
+        
+        $scope.renewpassword = function() {
+            
         };
     };
     
-    ctrl.$inject = ['$scope', 'LoginService'];
+    ctrl.$inject = ['$scope', '$state', 'LoginServices'];
     return ctrl;
 });

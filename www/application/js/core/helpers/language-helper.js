@@ -34,5 +34,6 @@ define(['angular'], function(angular) {
         
         return t;
     };
-    return angular.module('LanguageHelper', ['$http', languageHelper]);
+    languageHelper.$inject = ['$http'];
+    return languageHelper;
 });

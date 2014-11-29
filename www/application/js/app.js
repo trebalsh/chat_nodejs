@@ -3,20 +3,20 @@
  */
 define([
 	'angular',
-	'uiRouter',
+    'uiRouter',
     'uiBootstrap',
-    './core/core',
-    './controllers/controllers',
-	'./services/services',
-	'./directives/directives',
-	'./filters/filters',
+    'core/core',
+    'services/services',
+	'controllers/controllers',
+    'directives/directives',
+	'filters/filters'
 ], function(angular) {
 	'use strict';
     
     return angular.module('app', [
 		'ui.router',
-        'ui.bootsrap',
-		'app.jb',
+		'ui.bootstrap',
+        'app.jb',
         'app.services',
 		'app.controllers',
         'app.directives',

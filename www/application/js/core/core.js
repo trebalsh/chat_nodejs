@@ -5,7 +5,7 @@ define(function(require) {
     'use strict';
     
     var angular = require('angular');
-    var mod = angular.module('app.jb');
+    var mod = angular.module('app.jb', []);
     
     /*js init*/
     if (!Array.prototype.last){
@@ -21,24 +21,29 @@ define(function(require) {
     mod.factory('GeneralConfig', require('core/config/general'));
     mod.factory('LanguageConfig', require('core/config/lang'));
 
-    mod.service('Config', ['$q', 'GeneralConfig', 'LanguageConfig', 'LanguageHelper',
-        function(q, GeneralConfig, LanguageConfig, LanguageHelper) {
-            var answer = {};
+    var config = function($q, GeneralConfig, LanguageConfig, LanguageHelper) {
+        var answer = {};
+        
+        answer.fetchData = function(q) {
+            var gc = GeneralConfig;
+            gc.getConfig(function(r) {
+                answer.general = r;
+            });
             
-            answer.fetchData = function(q) {
-                var gc = new GeneralConfig();
-                gc.getConfig(function(r) {
-                    answer.config = r;
-                });
-                
-                var lc = new LanguageConfig();
-                lc.getLang(function(r) {
-                    answer.lang = new LanguageHelper(r);
-                });
-                q.resolve();
-            };
-            return answer;
-    }]);
+            var lc = LanguageConfig;
+            lc.getLang(function(r) {
+                answer.lang = new LanguageHelper(r);
+            });
+            q.resolve();
+        };
+        return answer;
+    }
+    
+    mod.factory('Config', function($q, GeneralConfig, LanguageConfig, LanguageHelper) {
+        var defer = $q.defer();
+        config($q, GeneralConfig, LanguageConfig, LanguageHelper).fetchData(defer);
+        return defer.promise;
+    });
     
     /*network*/
     mod.factory('SocketNetwork', require('core/network/socket'));

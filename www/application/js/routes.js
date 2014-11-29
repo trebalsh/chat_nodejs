@@ -9,25 +9,18 @@ define(['app'], function(app) {
             $stateProvider.state('login', {
 		    	url: "/login",
                 templateUrl: "templates/login/login.html",
-                resolve: {
-                    'config':function($q, Config) {
-                        var defer = $q.defer();
-                        Config.fetchData(defer);
-                        return defer.promise;
-                    }
-                },
-		    	controller: 'LoginCtrl'
+		    	controller: "LoginCtrl"
 	    	}).state('tabs', {
                 url: "/tabs",
                 abstract:true,
                 templateUrl: "templates/menu/menu.html",
-                controller:"MenuCtrl"
+                //controller:"MenuCtrl"
             }).state('tabs.register', {
 		    	url: "/register",
                 views: {
                     'menuContent': {
                         templateUrl: "templates/login/register.html",
-                        controller: 'RegisterCtrl'
+                        //controller: 'RegisterCtrl'
                     }
                 }
 			}).state('tabs.available', {
@@ -35,7 +28,7 @@ define(['app'], function(app) {
                 views: {
                     'menuContent': {
                         templateUrl: "templates/chat/people.html",
-                        controller: 'PeopleCtrl'
+                        //controller: 'PeopleCtrl'
                     }
                 }
             }).state('tabs.history', {
@@ -43,7 +36,7 @@ define(['app'], function(app) {
                 views: {
                     'menuContent': {
                         templateUrl: "templates/chat/history.html",
-                        controller: 'HistoryCtrl'
+                        //controller: 'HistoryCtrl'
                     }
                 }
             }).state('tabs.chatroom', {
@@ -51,15 +44,15 @@ define(['app'], function(app) {
                 views: {
                     'menuContent': {
                         templateUrl: "templates/chat/room.html",
-                        controller: 'RoomCtrl'
+                        //controller: 'RoomCtrl'
                     }
                 }
             }).state('tabs.notfound', {
-                url:'/404',
+                url:'/notfound',
                 views: {
                     'menuContent': {
                         templateUrl: "templates/errors/notfound.html",
-                        controller: 'NotFoundCtrl'
+                        //controller: 'NotFoundCtrl'
                     }
                 }
             });

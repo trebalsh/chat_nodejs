@@ -3,7 +3,7 @@ define(function(require) {
     
 	var angular = require('angular');
     var jb = require('core/core');
-    var services = angular.module('app.services', ['jb']);
+    var services = angular.module('app.services', ['app.jb']);
     
     //TODO parse json file for modules installation
     

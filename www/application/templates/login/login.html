@@ -1,0 +1,9 @@
+<div>
+    <form>
+        <label for="username">Username: </label>
+        <input ng-model="username" ng-patter="/^([a-zA-Z0-9_\.\-])+$/" name="username" />
+        <label for="password">Password: </label>
+        <input ng-model="password" name="password" type="password"/>
+        <input type="button" ng-click="login(username, password)" value="OK"/>
+    </form>
+</div>

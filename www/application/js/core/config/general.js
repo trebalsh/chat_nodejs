@@ -7,11 +7,10 @@ define(['angular'], function(angular) {
     var config = function($http) {
         return {
             getConfig: function(callback) {
-                $http.get('configuration/config.json', {
+                $http.get('configuration/general.json', {
                     jsoncallback:'JSON_CALLBACK'
                 }).then(
                     function(r) {
-                        app.constant('config', angular.fromJson(r).data);
                         callback(angular.fromJson(r).data);
                     },
                     function(e) {
@@ -21,5 +20,6 @@ define(['angular'], function(angular) {
             }
         };
     };
-    return angular.module('GeneralConfig', ['$http', config]);
+    config.$inject = ['$http'];
+    return config;
 });

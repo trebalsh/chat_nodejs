@@ -7,11 +7,12 @@ var ROUTE_LOSTPASSWORD = '/renew-password';
 
 function login(request, response) {
     var body = "";
-    console.log(request);
+    
     request.on('data', function(chunk) {
-        body += chunck;
+        body += chunk;
     }).on('end', function() {
-        /*if (data.username && data.password) {
+        var data = JSON.parse(body);
+        if (data.username && data.password) {
             loginservice.login(data, function(res) {
                 response.write(res);
             }, function(err) {
@@ -19,9 +20,8 @@ function login(request, response) {
             });
         } else {
             response.write("403 : bim");
-        }*/
-        response.writeHead(200);
-        response.end(body);
+        }
+        response.end();
     });
 }
 
